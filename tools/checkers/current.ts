@@ -15,7 +15,7 @@ registryTask(__filename, 'check:current', () => {
     const logs = querySync('git', ['log', '-1', '--format=%s']);
     console.log('[ logs ]', logs);
     
-    const prBaseSha = fs.readFileSync('/tmp/pr_base', 'utf-8');
+    const prBaseSha = fs.readFileSync('/tmp/pr_base', 'utf-8').replace(/^[\n\s]+|[\n\s]+$/g, '');
     console.log('[ prBaseSha ]', prBaseSha);
     const commits = querySync('git', ['log', `${prBaseSha}...HEAD`, '--format=%s'])
     console.log('[ commits ]', commits);
