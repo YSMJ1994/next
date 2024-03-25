@@ -12,7 +12,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
       - name: Get Head Commit Message
         id: get_head_commit_message
-        run: GITHUB_BASE_SHA="${{ github.event.pull_request.base.sha }}"
+        run: echo '${{ github.event.pull_request.base.sha }}' > /tmp/pr_base
       - uses: actions/setup-node@v3
         with:
           node-version: 16
