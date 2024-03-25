@@ -7,7 +7,7 @@
 */
 import fs from 'fs-extra';
 import { escapeRegExp, camelCase, kebabCase } from 'lodash';
-import { getComponentName, querySync, execSync, registryTask, SRC_DIR_PATH } from '../utils';
+import { getComponentName, querySync, execSync, registryTask, SRC_DIR_PATH, log } from '../utils';
 
 registryTask(__filename, 'check:current', () => {
     const prBaseSha = fs.readFileSync('/tmp/pr_base', 'utf-8').replace(/^[\n\s]+|[\n\s]+$/g, '');
@@ -37,10 +37,11 @@ registryTask(__filename, 'check:current', () => {
         'g'
     );
     const matched = commits.match(reg);
+    log('发生变更的组件', matched);
     if (!matched) {
         return;
     }
     const names = Array.from(new Set(matched)).map(t => t.replace(/^\(|\)$/g, ''));
-    const targetNames = names.map(name => namesMap.get(name)!);
+    const targetNames = names.map(name => namesMap.get(name)!).filter(Boolean);
     execSync('npm', ['run', 'check', ...targetNames]);
 });
