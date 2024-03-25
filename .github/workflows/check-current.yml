@@ -8,8 +8,6 @@ jobs:
     steps:
       - name: Checkout Commit
         uses: actions/checkout@v3
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
       - name: Get Head Commit Message
         id: get_head_commit_message
         run: echo '${{ github.event.pull_request.base.sha }}' > /tmp/pr_base
