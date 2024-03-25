@@ -15,6 +15,9 @@ registryTask(__filename, 'check:current', () => {
     const logs = querySync('git', ['log', '-1', '--format=%s']);
     console.log('[ logs ]', logs);
     console.log('[ GITHUB_BASE_SHA ]', process.env.GITHUB_BASE_SHA);
+    const baseSha = process.env.GITHUB_BASE_SHA;
+    const commits = querySync('git', ['log', `${baseSha}...HEAD`, '--format=%s'])
+    console.log('[ commits ]', commits);
     // const GITHUB_OUTPUT_FILE = process.env.GITHUB_OUTPUT as string;
     // const text = fs.readFileSync(GITHUB_OUTPUT_FILE, 'utf-8');
     // console.log('[ text ]', text);
