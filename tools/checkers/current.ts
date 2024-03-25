@@ -12,7 +12,7 @@ import { getComponentName, querySync, execSync, registryTask, SRC_DIR_PATH, log 
 registryTask(__filename, 'check:current', () => {
     const prBaseSha = fs.readFileSync('/tmp/pr_base', 'utf-8').replace(/^[\n\s]+|[\n\s]+$/g, '');
     const commits = querySync('git', ['log', `${prBaseSha}...HEAD`, '--format=%s']);
-
+    log('Commits', commits.split('\n'));
     const children = fs.readdirSync(SRC_DIR_PATH);
     const namesMap = new Map(
         children
