@@ -12,10 +12,13 @@ import { querySync, registryTask, SRC_DIR_PATH } from '../utils';
 registryTask(__filename, 'check:current', () => {
     const branchName = querySync('git', ['branch', '--show-current']);
     console.log('[ branch ]', branchName);
-    const GITHUB_OUTPUT_FILE = process.env.GITHUB_OUTPUT as string;
-    const text = fs.readFileSync(GITHUB_OUTPUT_FILE, 'utf-8');
-    console.log('[ text ]', text);
-    const children = fs.readdirSync(SRC_DIR_PATH);
+    const logs = querySync('git', ['log', '-1', '--format=%s']);
+    console.log('[ logs ]', logs);
+    console.log('[ GITHUB_BASE_SHA ]', process.env.GITHUB_BASE_SHA);
+    // const GITHUB_OUTPUT_FILE = process.env.GITHUB_OUTPUT as string;
+    // const text = fs.readFileSync(GITHUB_OUTPUT_FILE, 'utf-8');
+    // console.log('[ text ]', text);
+    // const children = fs.readdirSync(SRC_DIR_PATH);
     // const current = children.find(dir => {
     //   // if (re) {
 
