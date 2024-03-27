@@ -1,9 +1,9 @@
-name: check-current
+name: checker
 
 on: [pull_request]
 
 jobs:
-  test:
+  changed:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Commit
